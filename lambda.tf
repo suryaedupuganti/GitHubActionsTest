@@ -13,7 +13,7 @@ data "archive_file" "welcome" {
 resource "aws_lambda_function" "test_lambda" {
   filename      = "${local.lambda_zip_location}"
   function_name = "welcome"
-  role          = "${aws_iam_role.welcome.arn}"
+  role          = "${aws_iam_role_policy.lambda_role.arn}"
   handler       = "welcome.hello"
 
   runtime = "python3.9"
