@@ -1,0 +1,21 @@
+name: Master
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+    #triggers the workflow to pull or push to main branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch: #allows to run the worlflow manually
+
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Running
+      run: |
+        echo "Running!"
