@@ -1,14 +1,22 @@
-resource "aws_lambda_function" "deploy" {
-  
-  filename      = "lambda_function.zip"
-  function_name = "lambda_function_name"
-  role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.test"
+locals{
+    lambda_zip_location = "outputs/welcome.zip"
+}
 
- 
-  source_code_hash = filebase64sha256("lambda_function.zip")
 
-  runtime = "nodejs12.x"
+data "archive_file" "welcome" {
+  type        = "zip"
+  source_file = "welcome.py"
+  output_path = "${local.lambda_zip_location}"
+}
+
+
+resource "aws_lambda_function" "test_lambda" {
+  filename      = "${local.lambda_zip_location}"
+  function_name = "welcome"
+  role          = "${aws_iam_role.lambda_role.arn}"
+  handler       = "welcome.hello"
+
+  runtime = "python3.10.5"
 
   
 }
