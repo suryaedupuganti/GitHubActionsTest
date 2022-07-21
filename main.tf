@@ -4,8 +4,8 @@ resource "aws_instance" "web" {
 }
 
 
-resource "aws_security_group" "443" {
-  name        = "443"
+resource "aws_security_group" "allow_https" {
+  name        = "allow_https"
   description = "Allow TLS inbound traffic"
   vpc_id      = "vpc-048bed2da6f6b465c"
 
